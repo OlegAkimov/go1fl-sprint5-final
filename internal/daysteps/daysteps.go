@@ -40,11 +40,31 @@ func (ds *DaySteps) Parse(datastring string) (err error) {
 		return err
 	}
 
+	if ds.Steps <= 0 {
+		return errors.New("steps <= 0")
+	}
+	if ds.Duration <= 0 {
+		return errors.New("duration <= 0")
+	}
+
 	return nil
 }
 
 func (ds DaySteps) ActionInfo() (string, error) {
 	// TODO: реализовать функцию
+	if ds.Steps <= 0 {
+		return "", errors.New("steps <= 0")
+	}
+	if ds.Duration <= 0 {
+		return "", errors.New("duration <= 0")
+	}
+	if ds.Weight <= 0 {
+		return "", errors.New("weight <= 0")
+	}
+	if ds.Height <= 0 {
+		return "", errors.New("height <= 0")
+	}
+
 	calories, err := spentenergy.WalkingSpentCalories(ds.Steps, ds.Personal.Weight, ds.Personal.Height, ds.Duration)
 	if err != nil {
 		return "", err
@@ -53,8 +73,9 @@ func (ds DaySteps) ActionInfo() (string, error) {
 	distance := spentenergy.Distance(ds.Steps, ds.Personal.Height)
 
 	template := `Количество шагов: %d.
-		Дистанция составила: %.2f км.
-		Вы сожгли: %.2f ккал.`
+Дистанция составила %.2f км.
+Вы сожгли %.2f ккал.
+`
 
 	return fmt.Sprintf(template, ds.Steps, distance, calories), nil
 }

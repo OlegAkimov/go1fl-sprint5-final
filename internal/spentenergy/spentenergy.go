@@ -16,17 +16,17 @@ const (
 func WalkingSpentCalories(steps int, weight, height float64, duration time.Duration) (float64, error) {
 	// TODO: реализовать функцию
 	if steps <= 0 {
-		err := errors.New("Количество шагов 0 или меньше")
+		err := errors.New("Кsteps <= 0")
 		return 0, err
 	}
 
-	if weight == 0 || height == 0 {
-		err := errors.New("weight или height равны 0")
+	if weight <= 0 || height <= 0 {
+		err := errors.New("weight или height <= 0")
 		return 0, err
 	}
 
-	if duration == 0 {
-		err := errors.New("Продолжительность равна 0")
+	if duration <= 0 {
+		err := errors.New("duration <= 0")
 		return 0, err
 	}
 
@@ -44,13 +44,13 @@ func RunningSpentCalories(steps int, weight, height float64, duration time.Durat
 		return 0, err
 	}
 
-	if weight == 0 || height == 0 {
-		err := errors.New("weight или height равны 0")
+	if weight <= 0 || height <= 0 {
+		err := errors.New("weight или height <= 0")
 		return 0, err
 	}
 
-	if duration == 0 {
-		err := errors.New("Продолжительность равна 0")
+	if duration <= 0 {
+		err := errors.New("Продолжительность <= 0")
 		return 0, err
 	}
 
@@ -63,7 +63,7 @@ func RunningSpentCalories(steps int, weight, height float64, duration time.Durat
 
 func MeanSpeed(steps int, height float64, duration time.Duration) float64 {
 	// TODO: реализовать функцию
-	if duration == 0 || steps <= 0 {
+	if duration <= 0 || steps <= 0 {
 		return 0
 	}
 

@@ -42,6 +42,13 @@ func (t *Training) Parse(datastring string) (err error) {
 		return err
 	}
 
+	if t.Steps <= 0 {
+		return errors.New("steps <= 0")
+	}
+	if t.Duration <= 0 {
+		return errors.New("duration <= 0")
+	}
+
 	return nil
 }
 
@@ -68,12 +75,8 @@ func (t Training) ActionInfo() (string, error) {
 	distance := spentenergy.Distance(t.Steps, t.Personal.Height)
 	meanSpeed := spentenergy.MeanSpeed(t.Steps, t.Personal.Height, t.Duration)
 
-	template := `Тип тренировки: %s
-		Длительность: %.2f ч.
-		Дистанция: %.2f км.
-		Скорость: %.2f км/ч
-		Сожгли калорий: %.2f`
+	template := "Тип тренировки: %s\nДлительность: %.2f ч.\nДистанция: %.2f км.\nСкорость: %.2f км/ч\nСожгли калорий: %.2f\n"
 
-	return fmt.Sprintf(template, t.TrainingType, t.Duration, distance, meanSpeed, calories), nil
+	return fmt.Sprintf(template, t.TrainingType, t.Duration.Hours(), distance, meanSpeed, calories), nil
 
 }
